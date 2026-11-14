@@ -8,19 +8,12 @@
   box-sizing: border-box;
 }
 
-html,
-body {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
 /* Disable blocking device-notification so all devices & orientations work */
 .device-notification {
   display: none !important;
 }
 
-/* Modern dynamic viewport height for mobile browser address bars */
+/* Base responsive safety */
 .l-viewport {
   height: 100vh;
   height: 100dvh;
@@ -31,18 +24,6 @@ body {
   max-width: min(1440px, 92%);
 }
 
-/* Allow safe internal scrolling if a section exceeds screen height (e.g. landscape phones) */
-.l-section {
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-
-.l-section::-webkit-scrollbar {
-  display: none;
-}
-
 /* Keep Work slider circular images properly cropped on every screen */
 .work--lockup .slider--item-image img {
   width: 100%;
@@ -51,9 +32,11 @@ body {
   display: block;
 }
 
-/* Ensure header never crowds small screens */
-.header {
-  padding: 0 4px;
+/* Always keep the profile/banner image visible and proportional */
+.intro--banner img {
+  display: block !important;
+  max-width: 100%;
+  height: auto;
 }
 
 .header--logo img {
@@ -68,9 +51,9 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   Tablets & Small Laptops (<= 1180px)
+   Tablets & Small Laptops (<= 1180px & > 767px)
    -------------------------------------------------------------------------- */
-@media (max-width: 1180px) {
+@media (max-width: 1180px) and (min-width: 768px) {
   .intro,
   .work,
   .about,
@@ -79,8 +62,6 @@ body {
     max-width: 100%;
     padding-top: 72px;
     padding-bottom: 24px;
-    height: auto;
-    min-height: 100%;
   }
 
   .intro--banner img {
@@ -95,9 +76,9 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   Tablets Portrait (<= 900px)
+   Tablets Portrait (768px - 900px)
    -------------------------------------------------------------------------- */
-@media (max-width: 900px) {
+@media (max-width: 900px) and (min-width: 768px) {
   .intro--banner {
     height: auto;
     min-height: 310px;
@@ -143,51 +124,130 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   Mobile & Large Phones (<= 767px)
+   Mobile & Smartphones (<= 767px): Native Smooth Vertical Scrolling
    -------------------------------------------------------------------------- */
 @media (max-width: 767px) {
+  html,
+  body {
+    width: 100%;
+    height: auto !important;
+    min-height: 100%;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .perspective {
+    height: auto !important;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
+
+  .perspective.perspective--modalview {
+    position: fixed;
+    inset: 0;
+    height: 100vh !important;
+    height: 100dvh !important;
+    overflow: hidden !important;
+  }
+
+  .container {
+    min-height: 100vh;
+    outline-width: 14px;
+  }
+
+  #viewport.l-viewport,
+  .l-viewport {
+    height: auto !important;
+    min-height: 100vh;
+    overflow: visible !important;
+    touch-action: pan-y !important;
+    box-shadow: none;
+  }
+
   .l-wrapper {
     max-width: 90%;
+    height: auto;
+  }
+
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 64px;
+    padding: 0 5%;
+    background: rgba(12, 12, 12, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 20;
+  }
+
+  /* Stack all sections vertically so users can scroll normally on mobile */
+  .l-main-content {
+    display: flex;
+    flex-direction: column;
+    height: auto !important;
+  }
+
+  .l-section,
+  .section,
+  .section--next,
+  .section--prev {
+    position: relative !important;
+    height: auto !important;
+    min-height: auto;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    transition: none !important;
+    padding: 48px 0;
+  }
+
+  .l-section:first-child {
+    padding-top: 84px;
   }
 
   .intro,
   .work,
   .about,
   .hire {
-    justify-content: center;
-    padding-top: 76px;
-    padding-bottom: 28px;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    justify-content: flex-start;
   }
 
-  /* Intro Section */
+  /* Intro Section + Profile Image ALWAYS Visible */
   .intro--banner {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    height: auto;
+    height: auto !important;
     min-height: 0;
     padding-bottom: 28px;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
   }
 
   .intro--banner h1 {
-    font-size: clamp(1.95rem, 8.5vw, 2.85rem);
+    font-size: clamp(2rem, 9vw, 2.9rem);
     line-height: 1.08;
     margin: 0 0 18px 0;
   }
 
   .intro--banner img {
-    position: relative;
-    bottom: auto;
-    right: auto;
-    width: min(220px, 60%) !important;
+    position: relative !important;
+    bottom: auto !important;
+    right: auto !important;
+    display: block !important;
+    width: min(240px, 68%) !important;
     max-width: 100%;
-    margin-top: 16px;
-    align-self: flex-end;
-    display: block;
+    height: auto;
+    margin: 22px auto 0 auto;
   }
 
-  /* Keep intro options visible and cleanly stacked on mobile */
   .intro--options {
     display: grid !important;
     grid-template-columns: 1fr;
@@ -197,7 +257,7 @@ body {
   .intro--options > a {
     max-width: 100%;
     margin: 0;
-    padding-bottom: 8px;
+    padding-bottom: 10px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
@@ -208,19 +268,19 @@ body {
 
   .intro--options h3 {
     margin: 0 0 4px 0;
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .intro--options p {
     margin: 0;
-    font-size: 12.5px;
+    font-size: 13px;
     line-height: 1.45;
   }
 
   /* Work / Slider Section */
   .work h2 {
     font-size: clamp(1.5rem, 6vw, 2rem);
-    margin-bottom: 12px;
+    margin-bottom: 16px;
   }
 
   .work--lockup .slider {
@@ -228,22 +288,22 @@ body {
   }
 
   .work--lockup .slider--item-center {
-    top: 16px;
+    top: 12px;
   }
 
   .work--lockup .slider--item-center .slider--item-image {
-    width: clamp(160px, 46vw, 210px);
-    height: clamp(160px, 46vw, 210px);
+    width: clamp(160px, 48vw, 220px);
+    height: clamp(160px, 48vw, 220px);
   }
 
   .work--lockup .slider--item-center .slider--item-title {
     margin-top: 18px;
-    font-size: 15px;
+    font-size: 16px;
   }
 
   .work--lockup .slider--item-description {
     font-size: 13px;
-    max-width: 240px;
+    max-width: 250px;
   }
 
   .work--lockup .slider--next,
@@ -255,12 +315,11 @@ body {
 
   /* About Section */
   .about--banner {
-    height: auto;
+    height: auto !important;
     min-height: 0;
     padding-bottom: 20px;
   }
 
-  /* Prevent decorative shapes from overflowing small viewports */
   .about--banner::before {
     left: 42%;
     top: 4px;
@@ -292,12 +351,12 @@ body {
     display: none;
   }
 
-  /* Keep About options visible in a responsive 3-column grid */
   .about--options {
     display: grid !important;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 10px;
     margin-top: 16px;
+    margin-bottom: 24px;
     max-width: 100%;
   }
 
@@ -313,9 +372,25 @@ body {
     font-size: 12px;
   }
 
-  /* Contact Section */
+  /* Contact Section: break out of fixed positioning on mobile so it flows in scroll */
+  .contact {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    height: auto !important;
+    min-height: 440px;
+    padding: 48px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .contact--lockup {
-    max-width: 92%;
+    max-width: 100%;
+    width: 100%;
+    height: auto;
     justify-content: center;
   }
 
@@ -325,6 +400,10 @@ body {
   }
 
   /* Hire Us Form */
+  .hire {
+    padding-bottom: 32px;
+  }
+
   .hire h2 {
     font-size: clamp(1.4rem, 5.5vw, 1.9rem);
     margin-bottom: 12px;
@@ -392,10 +471,6 @@ body {
    Extra Small Phones (<= 400px)
    -------------------------------------------------------------------------- */
 @media (max-width: 400px) {
-  .intro--banner img {
-    display: none;
-  }
-
   .work--lockup .slider {
     width: 100%;
   }
@@ -414,7 +489,7 @@ body {
 
   .about--options {
     grid-template-columns: 1fr;
-    gap: 28px;
+    gap: 32px;
   }
 
   .about--options > a {
@@ -428,9 +503,14 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   Landscape Smartphones & Short Viewports (max-height: 560px)
+   Landscape Desktop/Tablet Short Viewports (min-width: 768px and max-height: 560px)
    -------------------------------------------------------------------------- */
-@media (max-height: 560px) {
+@media (min-width: 768px) and (max-height: 560px) {
+  .l-section {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
   .intro,
   .work,
   .about,
@@ -453,75 +533,19 @@ body {
   }
 
   .intro--banner img {
-    width: 170px !important;
-    max-height: 150px;
+    width: 180px !important;
+    max-height: 160px;
     object-fit: contain;
     bottom: 12px;
   }
 
-  .intro--options {
-    display: grid !important;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
-  }
-
-  .intro--options > a {
-    border-bottom: none;
-    padding-bottom: 0;
-  }
-
-  .work--lockup .slider--item-center {
-    top: 8px;
-  }
-
   .work--lockup .slider--item-center .slider--item-image {
-    width: 145px;
-    height: 145px;
+    width: 150px;
+    height: 150px;
   }
 
   .work--lockup .slider--next,
   .work--lockup .slider--prev {
     top: 60px;
-    width: 40px;
-    height: 40px;
-  }
-
-  .about--banner {
-    height: auto;
-    min-height: 0;
-  }
-
-  .about--banner h2 {
-    font-size: clamp(1.8rem, 6vh, 2.8rem);
-    margin-top: 0;
-  }
-
-  .about--banner img {
-    max-height: 180px;
-    width: auto;
-    bottom: -20px;
-  }
-
-  .contact--lockup .modal {
-    padding: 22px 24px;
-  }
-
-  .contact--lockup .modal--options > li {
-    margin-bottom: 12px;
-  }
-
-  .outer-nav > li {
-    font-size: 28px;
-    margin: 2px 0;
-  }
-}
-
-@media (max-width: 600px) and (max-height: 560px) {
-  .intro--options {
-    grid-template-columns: 1fr;
-  }
-
-  .intro--banner img {
-    display: none;
   }
 }
