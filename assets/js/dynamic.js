@@ -10,7 +10,7 @@ $(document).ready(function() {
       category: "Web App / Game",
       description: "Sebuah website permainan sederhana yang terinspirasi dari TV show populer",
       url: "https://Nafis-Hariri.github.io/Familly-100",
-      image: "assets/img/Screenshot.png"
+      image: "assets/img/download.jpeg"
     },
     {
       id: 2,
