@@ -193,11 +193,12 @@ body {
     position: relative;
     bottom: auto;
     right: auto;
-    width: min(220px, 60%) !important;
+    width: min(210px, 58%) !important;
     max-width: 100%;
-    margin-top: 16px;
-    align-self: flex-end;
+    margin-top: -24px;
+    align-self: center;
     display: block;
+    pointer-events: none;
   }
 
   /* Keep intro options visible and cleanly stacked on mobile */
@@ -406,7 +407,9 @@ body {
    -------------------------------------------------------------------------- */
 @media (max-width: 400px) {
   .intro--banner img {
-    display: none;
+    display: block;
+    width: min(185px, 55%) !important;
+    margin-top: -20px;
   }
 
   .work--lockup .slider {
@@ -535,7 +538,11 @@ body {
   }
 
   .intro--banner img {
-    display: none;
+    display: block;
+    width: 140px !important;
+    max-height: 140px;
+    object-fit: contain;
+    margin-top: -12px;
   }
 }
 
