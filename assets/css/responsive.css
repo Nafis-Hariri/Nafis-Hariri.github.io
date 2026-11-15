@@ -13,6 +13,8 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  /* stop accidental pull-to-refresh while swiping sections */
+  overscroll-behavior-y: none;
 }
 
 /* Disable blocking device-notification so all devices & orientations work */
@@ -24,6 +26,9 @@ body {
 .l-viewport {
   height: 100vh;
   height: 100dvh;
+  /* let the browser own vertical finger gestures (pinch-zoom stays enabled) */
+  touch-action: pan-y pinch-zoom;
+  overscroll-behavior-y: contain;
 }
 
 .l-wrapper {
@@ -37,6 +42,9 @@ body {
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
+  /* vertical finger scrolling is always native, never hijacked by JS */
+  touch-action: pan-y;
+  overscroll-behavior-y: contain;
 }
 
 .l-section::-webkit-scrollbar {
@@ -78,9 +86,14 @@ body {
     width: 100%;
     max-width: 100%;
     padding-top: 72px;
-    padding-bottom: 24px;
+    /* keeps the last field/button clear of the floating section controls */
+    padding-bottom: 88px;
     height: auto;
     min-height: 100%;
+  }
+
+  .contact {
+    padding-bottom: 88px;
   }
 
   .intro--banner img {
@@ -156,7 +169,7 @@ body {
   .hire {
     justify-content: center;
     padding-top: 76px;
-    padding-bottom: 28px;
+    padding-bottom: 84px;
   }
 
   /* Intro Section */
