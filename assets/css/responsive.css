@@ -538,3 +538,127 @@ body {
     display: none;
   }
 }
+
+/* --------------------------------------------------------------------------
+   Compact Section Controls (shown only when the side nav is hidden, <= 1180px)
+   -------------------------------------------------------------------------- */
+.mobile-nav {
+  display: none;
+}
+
+@media (max-width: 1180px) {
+  .mobile-nav {
+    position: fixed;
+    right: max(14px, env(safe-area-inset-right));
+    bottom: max(14px, calc(env(safe-area-inset-bottom) + 10px));
+    z-index: 40;
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    gap: 2px;
+    padding: 5px 6px;
+    background-color: rgba(0, 0, 0, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 999px;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.4);
+    -webkit-transition: opacity 0.3s ease, visibility 0.3s ease, -webkit-transform 0.3s ease;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+  }
+
+  .mobile-nav--btn {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    border-radius: 999px;
+    color: #fff;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-transition: background-color 0.25s ease;
+    transition: background-color 0.25s ease;
+  }
+
+  .mobile-nav--btn:hover,
+  .mobile-nav--btn:focus-visible {
+    background-color: rgba(255, 255, 255, 0.14);
+  }
+
+  .mobile-nav--btn:active {
+    background-color: rgba(255, 255, 255, 0.24);
+  }
+
+  .mobile-nav--btn svg {
+    width: 15px;
+    height: 15px;
+    fill: currentColor;
+  }
+
+  .mobile-nav--indicator {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: baseline;
+    -webkit-align-items: baseline;
+    -ms-flex-align: baseline;
+    align-items: baseline;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    gap: 2px;
+    min-width: 44px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.5);
+    font-variant-numeric: tabular-nums;
+    pointer-events: none;
+  }
+
+  .mobile-nav--current {
+    font-size: 13px;
+    color: #fff;
+  }
+
+  .mobile-nav--sep {
+    opacity: 0.45;
+  }
+
+  /* never compete with the open 3D navigation overlay */
+  .perspective--modalview ~ .mobile-nav {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    -webkit-transform: translateY(12px);
+    transform: translateY(12px);
+  }
+}
+
+/* Typing inside the request form: keep the controls out of the keyboard area */
+@media (max-width: 767px) {
+  .mobile-nav {
+    right: 10px;
+    bottom: max(10px, calc(env(safe-area-inset-bottom) + 8px));
+  }
+}
