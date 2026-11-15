@@ -549,6 +549,9 @@ body {
 @media (max-width: 1180px) {
   .mobile-nav {
     position: fixed;
+    /* fallbacks first, then safe-area aware values for notched screens */
+    right: 14px;
+    bottom: 24px;
     right: max(14px, env(safe-area-inset-right));
     bottom: max(14px, calc(env(safe-area-inset-bottom) + 10px));
     z-index: 40;
@@ -659,6 +662,7 @@ body {
 @media (max-width: 767px) {
   .mobile-nav {
     right: 10px;
+    bottom: 16px;
     bottom: max(10px, calc(env(safe-area-inset-bottom) + 8px));
   }
 }
